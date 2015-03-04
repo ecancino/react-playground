@@ -1,0 +1,30 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    title React Playground
+    link(href='css/app.min.css', rel='stylesheet')
+  body
+    nav(class='deep-purple darken-4', role='navigation')
+      .container
+       .nav-wrapper
+          a(id='logo-container' href='#' class='brand-logo') People
+
+    section(id='main', class='section')
+      .container
+        .row
+          #app.col.s12.section
+
+    footer(class='grey lighten-3')
+      .container
+        .row
+          .col.s12
+            h5(class='black-text') Contacto
+            p(class='black-text') eduardo.cancino@ciudadde.mx
+
+       .footer-copyright
+          .container
+            | Made with&nbsp;
+            a(class='orange-text text-lighten-3', href='http://facebook.github.io/react/') React
+
+    script(src='js/app.min.js')

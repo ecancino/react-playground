@@ -1,0 +1,26 @@
+@import "../node_modules/materialize-css/sass/materialize";
+@import "../node_modules/materialize-css/sass/style";
+
+$person: 120px;
+
+#people {
+  li {
+    width: 155px;
+    float: left;
+    margin: 5px;
+    .card-content {
+      text-align: center;
+      span {
+        font-size: 100%;
+      }
+    }
+    img {
+      width: $person;
+      height: $person;
+      opacity: 0.5;
+    }
+    a {
+      cursor: pointer;
+    }
+  }
+}
