@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp'),
   clean = require('gulp-clean'),
   jade = require('gulp-jade'),
@@ -10,27 +12,26 @@ var gulp = require('gulp'),
 
 
 gulp.task('clean', function () {
-  return gulp.src('./tmp/*', {read: false})
+  return gulp.src([ './tmp', './public/*' ], { read: false })
     .pipe(clean());
 });
 
 gulp.task('jade', function () {
   return gulp.src('./src/index.jade')
     .pipe(jade())
-    .pipe(gulp.dest('public'));
+    .pipe(gulp.dest('./public'));
 });
 
 gulp.task('jsx', function () {
-  return gulp.src('./src/*.jsx')
+  return gulp.src('./src/app.jsx')
     .pipe(browserify({
-      transform: [
-        'babelify'
-      ]
+      extensions: [ '.jsx' ],
+      transform: [ 'babelify' ]
     }))
-    .pipe(gulp.dest('tmp'))
+    .pipe(gulp.dest('./tmp'))
     .pipe(rename({suffix: '.min', extname: '.js'}))
     .pipe(uglify())
-    .pipe(gulp.dest('public/js'));
+    .pipe(gulp.dest('./public/js'));
 });
 
 gulp.task('scss', function () {
@@ -40,21 +41,23 @@ gulp.task('scss', function () {
         './node_modules/materialize-css/sass/materialize.scss'
       ]
     }))
-    .pipe(gulp.dest('tmp'))
+    .pipe(gulp.dest('./tmp'))
     .pipe(rename({suffix: '.min'}))
     .pipe(minify({keepSpecialComments: 0}))
-    .pipe(gulp.dest('public/css'));
+    .pipe(gulp.dest('./public/css'));
 });
 
 gulp.task('fonts', function () {
   return gulp.src('./node_modules/materialize-css/font/roboto/*.ttf')
-    .pipe(gulp.dest('public/font/roboto'));
+    .pipe(gulp.dest('./public/font/roboto'));
 });
 
+gulp.task('build', ['clean', 'jade', 'jsx', 'scss', 'fonts', 'clean']);
+
 gulp.task('watch', function () {
-  gulp.watch('src/index.jade', ['jade']);
-  gulp.watch('src/*.jsx', ['jsx']);
-  gulp.watch('src/*.scss', ['scss']);
+  gulp.watch('./src/index.jade', ['jade']);
+  gulp.watch('./src/*.jsx', ['jsx']);
+  gulp.watch('./src/*.scss', ['scss']);
 });
 
 gulp.task('serve', function () {
@@ -66,7 +69,6 @@ gulp.task('serve', function () {
     }));
 });
 
-gulp.task('default', ['clean', 'jade', 'jsx', 'scss', 'fonts', 'watch', 'serve'], function () {
+gulp.task('default', ['build', 'watch', 'serve'], function () {
   console.log('Gulp and running!');
 });
-
