@@ -4,15 +4,15 @@ var gulp = require('gulp'),
   clean = require('gulp-clean'),
   jade = require('gulp-jade'),
   browserify = require('gulp-browserify'),
-  uglify = require('gulp-uglify'),
+  //uglify = require('gulp-uglify'),
   sass = require('gulp-sass'),
-  minify = require('gulp-minify-css'),
+  //minify = require('gulp-minify-css'),
   rename = require('gulp-rename'),
   webserver = require('gulp-webserver');
 
 
 gulp.task('clean', function () {
-  return gulp.src([ './tmp', './public/*' ], { read: false })
+  return gulp.src([ './tmp' ], { read: false })
     .pipe(clean());
 });
 
@@ -25,12 +25,13 @@ gulp.task('jade', function () {
 gulp.task('jsx', function () {
   return gulp.src('./src/app.jsx')
     .pipe(browserify({
-      extensions: [ '.jsx' ],
-      transform: [ 'babelify' ]
+      extensions: [ '.js', '.jsx' ],
+      transform: [ 'babelify' ],
+      debug: true
     }))
     .pipe(gulp.dest('./tmp'))
     .pipe(rename({suffix: '.min', extname: '.js'}))
-    .pipe(uglify())
+    //.pipe(uglify())
     .pipe(gulp.dest('./public/js'));
 });
 
@@ -43,7 +44,7 @@ gulp.task('scss', function () {
     }))
     .pipe(gulp.dest('./tmp'))
     .pipe(rename({suffix: '.min'}))
-    .pipe(minify({keepSpecialComments: 0}))
+    //.pipe(minify({keepSpecialComments: 0}))
     .pipe(gulp.dest('./public/css'));
 });
 
@@ -52,11 +53,11 @@ gulp.task('fonts', function () {
     .pipe(gulp.dest('./public/font/roboto'));
 });
 
-gulp.task('build', ['clean', 'jade', 'jsx', 'scss', 'fonts', 'clean']);
+gulp.task('build', ['clean', 'jade', 'jsx', 'scss', 'fonts']);
 
 gulp.task('watch', function () {
   gulp.watch('./src/index.jade', ['jade']);
-  gulp.watch('./src/*.jsx', ['jsx']);
+  gulp.watch([ './src/*/*.jsx', './src/*/*.js' ], ['jsx']);
   gulp.watch('./src/*.scss', ['scss']);
 });
 

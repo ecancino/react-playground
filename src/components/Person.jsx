@@ -2,9 +2,9 @@
 
 import React from 'react';
 
-class Person extends React.Component {
+const Person = React.createClass({
   render() {
-    let github = ['http://github.com/', this.props.name].join('');
+    const github = ['http://github.com/', this.props.name].join('');
     return (
       <li>
         <div className="card">
@@ -25,6 +25,7 @@ class Person extends React.Component {
       </li>
     )
   }
-}
+});
 
 export default Person;
+
