@@ -1,7 +1,7 @@
 'use strict';
 
 var gulp = require('gulp'),
-  clean = require('gulp-clean'),
+  clean = require('del'),
   jade = require('gulp-jade'),
   browserify = require('gulp-browserify'),
   //uglify = require('gulp-uglify'),
@@ -10,10 +10,8 @@ var gulp = require('gulp'),
   rename = require('gulp-rename'),
   webserver = require('gulp-webserver');
 
-
 gulp.task('clean', function () {
-  return gulp.src([ './tmp' ], { read: false })
-    .pipe(clean());
+  return clean([ './tmp' ]);
 });
 
 gulp.task('jade', function () {
@@ -53,12 +51,15 @@ gulp.task('fonts', function () {
     .pipe(gulp.dest('./public/font/roboto'));
 });
 
-gulp.task('build', ['clean', 'jade', 'jsx', 'scss', 'fonts']);
+gulp.task('build', ['clean', 'jade', 'jsx', 'scss', 'fonts'], function(cb) {
+  cb();
+});
 
-gulp.task('watch', function () {
+gulp.task('watch', function (cb) {
   gulp.watch('./src/index.jade', ['jade']);
   gulp.watch([ './src/*/*.jsx', './src/*/*.js' ], ['jsx']);
   gulp.watch('./src/*.scss', ['scss']);
+  cb();
 });
 
 gulp.task('serve', function () {
@@ -66,10 +67,10 @@ gulp.task('serve', function () {
     .pipe(webserver({
       livereload: true,
       directoryListing: true,
-      open: 'http://localhost:8000/index.html'
+      open: 'index.html'
     }));
 });
 
-gulp.task('default', ['build', 'watch', 'serve'], function () {
+gulp.task('default', ['watch', 'serve', 'build'], function () {
   console.log('Gulp and running!');
 });

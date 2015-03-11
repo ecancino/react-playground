@@ -2,28 +2,51 @@
   "name": "react-playground",
   "version": "1.0.0",
   "description": "React Playground",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/treeskelt/react-playground"
+  },
   "dependencies": {
+    "materialize-css": "^0.95.3",
     "react": "^0.12.2",
     "reflux": "^0.2.5",
-    "reqwest": "^1.1.5",
-    "materialize-css": "^0.95.3"
+    "reqwest": "^1.1.5"
   },
   "devDependencies": {
-    "babelify": "^5.0.3",
-    "browserify": "^9.0.3",
     "gulp": "^3.8.11",
     "gulp-browserify": "^0.5.1",
-    "gulp-clean": "^0.3.1",
     "gulp-jade": "^1.0.0",
     "gulp-minify-css": "^0.5.1",
     "gulp-rename": "^1.2.0",
     "gulp-sass": "^1.3.3",
     "gulp-uglify": "^1.1.0",
+    "gulp-watch": "^4.1.1",
     "gulp-webserver": "^0.9.0",
-    "gulp-watch": "^4.1.1"
+    "browserify": "^9.0.3",
+    "jest-cli": "^0.4.0",
+    "babelify": "^5.0.3",
+    "babel-jest": "^4.0.0",
+    "del": "^1.1.1"
   },
   "scripts": {
-    "start": "gulp"
+    "start": "gulp",
+    "test": "jest"
+  },
+  "jest": {
+    "testDirectoryName": "tests",
+    "scriptPreprocessor": "./node_modules/babel-jest",
+    "testFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "jsx"
+    ],
+    "unmockedModulePathPatterns": [
+      "./node_modules/react"
+    ]
   },
   "author": "Eduardo Cancino",
   "license": "ISC"

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import Reflux from 'reflux';
-import { Button } from 'react-semantify';
 import Person from './Person';
 import PeopleActions from '../actions/PeopleActions';
 import PeopleStore from '../stores/PeopleStore';
@@ -23,12 +22,7 @@ const People =  React.createClass({
       <Person key={person.id} name={person.login} avatar={person.avatar_url} onClick={PeopleActions.deletePerson.bind(null, person)} />
     );
     return (
-      <section className="container">
-        <ul id="people">{list}</ul>
-        <Button color="orange" onclick={PeopleActions.loadPeople}>
-          Reload!
-        </Button>
-      </section>
+      <ul id="people">{list}</ul>
     );
   }
 });

@@ -4,14 +4,13 @@ import React from 'react';
 
 const Person = React.createClass({
   render() {
-    const github = ['http://github.com/', this.props.name].join('');
     return (
       <li>
         <div className="card">
           <div className="card-content">
             <span className="card-title deep-purple-text darken-4">
               <h6>
-                <a target="_blank" href={github}>{this.props.name}</a>
+                <a target="_blank" href={['http://github.com/', this.props.name].join('')}>{this.props.name}</a>
               </h6>
             </span>
             <p>
